@@ -12,7 +12,7 @@ let possRange = [lowRange, custRange];
 let previousGuess = [];
 //setting guesses to 0
 var guesses = 0;
-var secretNumber = (1);
+var secretNumber = 1;
 
 const readline = require("readline");
 const rl = readline.createInterface(process.stdin, process.stdout);
@@ -26,8 +26,6 @@ function ask(questionText) {
 start();
 
 async function start() {
-  
-
   //Player Game choice *Ice Box
 
   console.log(
@@ -45,9 +43,9 @@ async function start() {
   );
   console.log("**whisper** You entered: " + secretNumber);
   // Now try and complete the program.
-  
+  secretNumber = parseInt(secretNumber);
   //if statement to keep number in range
-  if (secretNumber != 0 && secretNumber <= custRange) {
+  if (secretNumber !== 0 && secretNumber <= custRange) {
     //establish while loop to continue as long as there are remaining guesses
 
     while (guesses < maxGuess) {
@@ -78,31 +76,31 @@ async function start() {
         //if statment for higher option
         if (hanswr.toLowerCase() === "h") {
           //Cheat Detection -- if hi lo choice contradicts earlier user input
-          if {
-            previousGuess.includes(['>', currentGuess]) == true;
-            console.log('You may have wasted you guess, please keep better track of the Secret Number')
+          if (currentGuess > secretNumber) {
+            console.log(
+              "You may have wasted you guess, please keep better track of the Secret Number"
+            );
+          } else {
+            previousGuess.push([">", currentGuess]);
+            lowRange = currentGuess;
+            possRange.splice(0, 1, currentGuess);
+            // var currentGuess = Math.round((highRange - lowRange) / 2 + lowRange);
           }
-          else {
-          previousGuess.push(['>', currentGuess]);
-          lowRange = currentGuess;
-          possRange.splice(0, 1, currentGuess);
-          // var currentGuess = Math.round((highRange - lowRange) / 2 + lowRange);
-          }
-        //else statement for lower option
-        }
-        else {
+          //else statement for lower option
+        } else {
           //Cheat Detection -- if hi lo choice contradicts earlier user input
-          if {
-            previousGuess.includes(['>', currentGuess]) == true;
-            console.log('You may have wasted you guess, please keep better track of the Secret Number')
-          }
-          else {
-          previousGuess.push('<', currentGuess);
-          custRange = currentGuess;
-          possRange.splice(1, 1, currentGuess);
-          // var currentGuess = Math.round((highRange - lowRange) / 2 + lowRange);
+          if (currentGuess < secretNumber) {
+            console.log(
+              "You may have wasted you guess, please keep better track of the Secret Number"
+            );
+          } else {
+            previousGuess.push("<", currentGuess);
+            custRange = currentGuess;
+            possRange.splice(1, 1, currentGuess);
+            // var currentGuess = Math.round((highRange - lowRange) / 2 + lowRange);
           }
         }
+      }
     }
   } else {
     console.log(
